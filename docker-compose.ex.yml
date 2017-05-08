@@ -1,0 +1,13 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+#  caddy:
+#    image: abiosoft/caddy:latest
+#    volumes:
+#      - "$(pwd)/Caddyfile:/etc/Caddyfile"
+#      - "$HOME/.caddy:/root/.caddy"
+  web:
+    image: noah-heil/golang-relay-starter-kit
+    restart: always

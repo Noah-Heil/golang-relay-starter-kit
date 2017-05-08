@@ -1,83 +1,28 @@
-# Golang-Relay Starter Kit
+#Playing with Golang-React-Relay-Graphql
 
-This kit includes:
-- a **NodeJS** app server: to serve the front-end written with `react-relay`
-- a **Golang** GraphQL server: to serve the back-end `graphql-go` server that handles GraphQL queries
-- a Babel transpiler workflow using `webpack` that you can use to get started building an app with Relay.
+Dear Future Me (b/c God help your soul if you are not me and you are currently reading this/are going to try to use this!):
 
-For a walkthrough, see the [Relay tutorial](https://facebook.github.io/relay/docs/tutorial.html).
+The entire application runs in docker containers because it is the best way to isolate env currently.
 
-### Notes:
-This is based on alpha version of `graphql-go` and `graphql-relay-go`. 
-Be sure to watch both repositories for latest changes.
+To run those containers I use docker-compose.
 
-## Installation
+So to spin up "the stack" you need to `sudo su` and then `docker-compose up` using the -f command to specify the docker-compose files for
+the env you plan on running it in.... Please note that the docker-compose files are currently specified with hard coded paths for my personal dev env.
 
-- Install dependencies for NodeJS app server
-```
-npm install
-```
-- Install dependencies for Golang GraphQL server
-```
-go get -v
-```
+Additionally the config/conf.toml file and anywhere else that I have specified configs for the postgres db are also hard coded dummy values....make sure to change them before going to prod.
 
-## Running
+Once you have spun up the stack you will need two more terminal windows one to run the cobra commands to spin up the graphql and graphiql servers and the other to run `npm start` from the root of the application to run the webpack build.
 
-Start a local server:
+Currently everything runs but you need to work on getting the data flow from the db to the views fixed b/c it is not working b/c when you query in the graphiql ide you dont get the correct data...
 
-```
-npm start
-```
+so thats next step and once you are done with that you will have a working template for a golang application running all the tech you want!!!
 
-The above command will run both the NodeJS app server and Golang GraphQL server concurrently.
+Huge thanks to Hafiz Ismail who's graphql-go packages are awesome and I built off of and basically followed a ton of tutorials for...
+here are some links:
 
-- Golang GraphQL server will be running at http://localhost:8080/graphql
-- NodeJS app server will be running at http://localhost:3000
+[github profile](https://github.com/sogko)
+[github graphql-go](https://github.com/graphql-go)
+[golang-react-relay-graphql tut](https://wehavefaces.net/learn-golang-graphql-relay-2-a56cbcc3e341)
+[golang-graphql first tut](https://wehavefaces.net/learn-golang-graphql-relay-1-e59ea174a902)
 
-## Developing
-
-### JavaScript
-Any changes you make to files in the `js/` directory will cause the server to
-automatically rebuild the app and refresh your browser.
-
-### Golang
-
-#### Schema data
-Since Golang does not support loading package / module dynamically, remember to update the package import for schema data in:
-- `graphql.go`
-- `scripts/updateSchema.go`
-
-For e.g
-
-```go
-import (
-  ...
-  "github.com/sogko/golang-relay-starter-kit/data" // <--- update to package containing schema
-)
-```
-
-#### Schema updates
-If at any time you make changes to `data/schema.go`, stop the server,
-regenerate `data/schema.json`, and restart the server:
-
-```
-npm run update-schema
-npm start
-```
-
-`schema.json` is needed by the JS code for `./build/babelRelayPlugin.js`
-
-## Examples
-- [todomvc-relay-go](https://github.com/sogko/todomvc-relay-go) - Port of the React/Relay TodoMVC app, driven by a Golang GraphQL backend
-
-Feel free to submit a PR to add to this list.
-
-## TODOs
-- [x] Swap out `express-graphql` server with a Golang GraphQL server
-- [x] GraphQL schema definition in Golang
-- [x] Generate `schema.json` from schema definition for `babel-relay-plugin`
-- [ ] Generate `schema.graphql` from schema definition
-
-## Credits
-This kit is build on top of https://github.com/relayjs/relay-starter-kit
+Soooo Hafiz if you ever see this...Your Awesome and thanks!

@@ -1,0 +1,5 @@
+[postgres-dockerdev]
+dbName = "relay_development"
+dbUser = "relay"
+dbPassword = "noahheil"
+dbHost = "postgres"

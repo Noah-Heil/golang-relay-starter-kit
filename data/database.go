@@ -1,53 +1,36 @@
 package data
 
+import (
+	"github.com/jinzhu/gorm"
+)
+
 // Model structs
 type User struct {
-	Id      string    `json:"id"`
-	Name    string    `json:"name"`
-	Widgets []*Widget `json:"widgets"`
-}
-
-type Widget struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-}
-
-// Mock data
-var viewer = &User{
-	Id:   "1",
-	Name: "Anonymous",
-}
-var widgets = []*Widget{
-	&Widget{"0", "What's-it"},
-	&Widget{"1", "Who's-it"},
-	&Widget{"2", "How's-it"},
+	gorm.Model
+	FirstName string `gorm:"not null"`
+	LastName  string `gorm:"not null"`
+	Email     string
 }
 
 // Data accessors
 func GetUser(id string) *User {
-	if id == viewer.Id {
-		return viewer
-	}
-	return nil
-}
-func GetViewer() *User {
-	return viewer
-}
-func GetWidget(id string) *Widget {
-	for _, widget := range widgets {
-		if widget.Id == id {
-			return widget
-		}
-	}
-	return nil
-}
-func GetWidgets() []*Widget {
-	return widgets
-}
-func WidgetsToInterfaceSlice(widgets ...*Widget) []interface{} {
-	var interfaceSlice []interface{} = make([]interface{}, len(widgets))
-	for i, d := range widgets {
-		interfaceSlice[i] = d
-	}
-	return interfaceSlice
+	// db, err := gorm.Open("postgres", "host="+
+	// 	viper.GetString("dbHost")+
+	// 	" user="+
+	// 	viper.GetString("dbUser")+
+	// 	" dbname="+
+	// 	viper.GetString("dbName")+
+	// 	" sslmode=disable password="+
+	// 	viper.GetString("dbPassword"))
+	// if err != nil { // Handle errors reading the config file
+	// 	panic(fmt.Errorf("Fatal error connecting to database: %s \n", err))
+	// }
+	db, _ := gorm.Open("postgres", "host=postgres user=relay dbname=relay_development sslmode=disable password=noahheil1")
+	defer db.Close()
+
+	var user User
+
+	db.First(&user, id)
+
+	return &user
 }

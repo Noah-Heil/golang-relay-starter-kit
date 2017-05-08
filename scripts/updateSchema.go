@@ -2,12 +2,13 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/testutil"
-	"github.com/sogko/golang-relay-starter-kit/data"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/Noah-Heil/golang-relay-starter-kit/data"
+	"github.com/graphql-go/graphql"
+	"github.com/graphql-go/graphql/testutil"
 )
 
 func main() {

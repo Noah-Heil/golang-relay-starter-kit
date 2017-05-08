@@ -1,0 +1,43 @@
+version: "3"
+services:
+  postgres:
+    ports:
+      - "5438:5432"
+    environment:
+      - POSTGRES_USER=relay
+      - POSTGRES_DB=relay_development
+      - POSTGRES_PASSWORD=noahheil1
+  nginx: # Handles the naming dev urls and the dns resolution
+    image: jwilder/nginx-proxy:latest
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+      - "80:80"
+    depends_on:
+      - pgweb
+      - web
+  pgweb: # A nice GUI for postgres written in Go
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8084:8081"
+    links:
+      - postgres:postgres
+    environment:
+      - VIRTUAL_HOST=pgweb.dev
+    depends_on:
+      - postgres
+  web:
+    restart: always
+    ports:
+      - "3070:3000"
+      - "8079:8080"
+    volumes:
+      - ./:/usr/src/app
+      - $GOPATH/:/go
+    environment:
+      - NODE_ENV=development
+      - VIRTUAL_HOST=relay.dev
+    depends_on:
+      - postgres
