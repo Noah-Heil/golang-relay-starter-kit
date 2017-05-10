@@ -26,3 +26,8 @@ here are some links:
 [golang-graphql first tut](https://wehavefaces.net/learn-golang-graphql-relay-1-e59ea174a902)
 
 Soooo Hafiz if you ever see this...Your Awesome and thanks!
+
+
+rimraf will delete files and folder for you no matter the os.
+ex: `rimraf <thing-to-destroy-here> && your other commands here`
+

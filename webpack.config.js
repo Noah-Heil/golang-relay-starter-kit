@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var DEVELOPMENT = process.env.NODE_ENV === 'development';
-var PRODUCTION = process.env.NODE_ENV === 'production';
+var DEVELOPMENT = process.env.NODE_ENV == 'development';
+var PRODUCTION = process.env.NODE_ENV == 'production';
 
 var entry = PRODUCTION
     ?   ['./src/app.js']
